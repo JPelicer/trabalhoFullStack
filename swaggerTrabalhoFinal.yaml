@@ -1,0 +1,88 @@
+swagger: "2.0"
+info:
+  title: Swagger Trabalho final
+  version: 1.0.0
+
+paths:
+  /:
+    get:
+      summary: Obtém todos os registros
+      responses:
+        200:
+          description: Sucesso
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Registro"
+
+    post:
+      summary: Cria um novo registro
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/RegistroInput"
+      responses:
+        201:
+          description: Registro criado com sucesso
+
+  /{id}:
+    put:
+      summary: Atualiza um registro existente
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/RegistroInput"
+      responses:
+        200:
+          description: Registro atualizado com sucesso
+
+    delete:
+      summary: Remove um registro existente
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      responses:
+        204:
+          description: Registro removido com sucesso
+
+definitions:
+  Registro:
+    type: object
+    properties:
+      nome:
+        type: string
+      email:
+        type: string
+      telefone:
+        type: string
+      data_nascimento:
+        type: string
+        format: date
+
+  RegistroInput:
+    type: object
+    properties:
+      nome:
+        type: string
+      email:
+        type: string
+      telefone:
+        type: string
+      data_nascimento:
+        type: string
+        format: date
+    required:
+      - nome
+      - email
+      - telefone
+      - data_nascimento
